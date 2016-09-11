@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta name="google-signin-client_id" content=471530136413-nv0r5c26vc3h0fpp8pki7cnvfbf6rd12.apps.googleusercontent.com>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mystyle.css') }}"> 
+      
+
+  
+</head >
+    
+<body  class="mainbody" ng-app="HELLO" ng-controller="whole" >
+    <table class="table1">
+      <tr>
+          <th class ="logo"> <div class="logo"><img src="logo.png"  width="100" height="30"></div></th>
+          <th>  
+              
+          </th>
+        <th class="search"><form>
+                <input class="searchinput" type="text" name="Search_data" placeholder="search/Ask" ng-model = "question">
+            
+                </form></th>
+          <th class="but"><input type="button" class="button" value="se" ng-click="search(question)" />
+              <input type="button" class="button" value="Ask" ng-click="topicasked(question)" />
+              
+              
+              
+            </th>
+          
+          
+          
+          <th class="login" >
+              <input type="button" value="signin" ng-click="login()" />
+          
+         
+          
+          
+          
+          
+          
+          
+          </th>
+      </tr>
+        </table>
+     
+    <div id="logindiv" class="loginpopup" ng-hide="hidden">
+        
+              <div class="g-signin2" data-onsuccess="onSignIn"></div>
+         <button onclick="signOut()">signout</button>
+
+              </div>
+      
+    
+ 
+      <div  class="div1"  >
+          <div class="table2" ng-repeat-start ="x in topi"  >
+              <p>//x.topicdata//</p>
+            
+          </div>
+          <table class="table3">
+              <tr>
+              <td >for
+                  </td>
+                  <td>Against</td>
+              </tr>
+          
+          
+          </table>
+          <table class="table4">
+              <tr>
+              <td class="table4_td">
+              
+          <div class="divtable4">
+          
+          
+                 <div class="innerdiv" >
+                  <table class="innertable1" ng-repeat-start = "y in x.forcomment">
+                     <tr>
+                      <td class= "username">username
+                         </td>
+                      
+                        
+                      </tr >
+                    
+                     
+                      <tr  >	
+                        <td >  
+                          <div class="contentcomment"> //y.commentdata//
+                            </div></td>
+                    
+                      </tr>
+                      
+                         </table>
+                     <table class="readmore" ng-repeat-end >
+                     <td > <input type="button" value="like" ng-click="liked(y.commentid)" />
+                         </td>
+                         <td>
+                         
+                            <div class="dropdown" ng-controller="Mycontroller" >
+                                          <input type="button" value="Show Hide DIV" ng-click="ShowHide()" />
+                                          <div id="myDropdown" class="dropdown-content" ng-hide = "IsHidden">
+                                            <a href="#">Link 1</a>
+                                            <a href="#">Link 2</a>
+                                            <a href="#">Link 3</a>
+                                          </div>
+                                        </div>
+
+                         </td>
+                    <td>readmore</td> 
+                     </table>
+                  
+                  </div> 
+          </div>
+          </td>
+          <td class="table4_td">
+              <div class="table4_right">
+              <div class="innerdiv_rightcomment"  >
+                  
+                     <table class="innertable1" ng-repeat-start = "y in x.againstcomment">
+                     <tr>
+                      <td class= "username">name surname 
+                         </td>
+                      
+                        
+                      </tr >
+                    
+                     
+                      <tr  >	
+                        <td >  
+                          <div class="contentcomment"> 
+                            
+                            //y.commentdata//
+                            </div></td>
+                    
+                      </tr>
+                      
+                         </table>
+                     <table class="readmore" ng-repeat-end>
+                     <td><input type="button" value="like" ng-click="liked(y.commentid)" />
+                         </td>
+                         <td> <div class="dropdown" ng-controller="Mycontroller" >
+                                          <input type="button" value="Show Hide DIV" ng-click="ShowHide()" />
+                                          <div id="myDropdown" class="dropdown-content" ng-hide = "IsHidden">
+                                            <a href="#">Link 1</a>
+                                            <a href="#">Link 2</a>
+                                            <a href="#">Link 3</a>
+                                          </div>
+                                        </div>
+</td>
+                    <td>readmore</td> 
+                     </table>
+                  
+    
+              </div>
+                
+              
+                  
+                  
+        
+              </div>
+          </td>
+              </tr>
+              </table>
+          
+            <form>
+                    <input class="commentinput" type="text" name="Your_vi" placeholder="Your View" ng-model = "views">
+            
+                </form>
+           
+             <table class="table5" >
+          
+          <tr>
+              <td><input type="button" class="post" value="for" ng-click="forview(views,x.topicid)" /></td>
+              <td><input type="button" class="post" value="Against" ng-click="Againstview(views,x.topicid)" /></td>
+              </tr>
+              
+              
+          </table>
+          
+          
+          
+          
+          <table class="seeall" ng-repeat-end>
+          <tr>
+              <td ><a href="newpage.html">Read all</a></td>
+              </tr>
+     
+          </table>
+          
+          <table>
+          <input type="button" class="post" value="loadmore" ng-click="loadmore()" />
+          </table>
+           
+       
+         </div>
+        
+
+    <div class= "rightdiv"></div>
+        
+       
+    
+
+</body>
+    
+       <script type="text/javascript">
+           
+            var offset =0;     //offset for load more function           
+           var d={{id|tojson|safe}} ;         
+
+           var app = angular.module("HELLO",[]);
+            
+            app.controller("whole", function($scope , $http){
+                $scope.name=['q','w','e','r','g','m'];
+              var req = {
+                     method: 'Post',
+                     url: 'http://localhost:5000/topicsloggedin',
+                     headers: {
+                       'Content-Type': 'application/json'
+                     },
+                     data:  {userid:d}
+                    }
+
+                    $http(req).then(function(response){
+                        $scope.status=response.status;
+                        $scope.topi=response.data;
+                        
+                    }, function(response){
+                        
+                        alert("server not reponding Error:"+ response.status);
+                        
+                    });
+                
+                $scope.liked = function(value)
+                { 
+                    var req_like = {
+                     method: 'Post',
+                     url: 'http://localhost:5000/liked',
+                     headers: {
+                       'Content-Type': 'application/json'
+                     },
+                     data:  {commentid:value,
+                            userid:d}
+                    }
+
+                  $http(req_like);
+                    
+                }
+                $scope.forview= function(views,topi)
+                {
+                     var req = {
+                     method: 'Post',
+                     url: 'http://localhost:5000/forview',
+                     headers: {
+                       'Content-Type': 'application/json'
+                     },
+                     data:  {topicid:topi,
+                            data:views,
+                            userid:d}
+                    }
+
+                    $http(req).then(function(response){
+                        alert(response.data)
+                        
+                    }, function(response){
+                        
+                        alert("server not reponding Error:"+ response.status);
+                        
+                    });
+                }
+                
+                 $scope.Againstview= function(views,topi)
+                {
+                     var req = {
+                     method: 'Post',
+                     url: 'http://localhost:5000/againstview',
+                     headers: {
+                       'Content-Type': 'application/json'
+                     },
+                     data:  {topicid:topi,
+                            data:views,
+                            userid:d}
+                    }
+
+                    $http(req).then(function(response){
+                         alert(response.data)
+                    }, function(response){
+                        
+                        alert("server not reponding Error:"+ response.status);
+                        
+                    });
+                }
+                
+                
+                
+                
+                
+                
+                
+                   $scope.topicasked= function(question)
+                {
+                     var req = {
+                     method: 'Post',
+                     url: 'http://localhost:5000/topicasked',
+                     headers: {
+                       'Content-Type': 'application/json'
+                     },
+                     data:  {
+                            data:question,
+                            userid:d}
+                    }
+
+                    $http(req).then(function(response){
+                        alert(response.data)
+                        
+                    }, function(response){
+                        
+                        alert("server not reponding Error:"+ response.status);
+                        
+                    });
+                       
+                       
+                       
+                }
+                   
+                                      
+                   
+           $scope.loadmore= function()   //fuction to load more topics
+            {  offset=offset+5;
+                var req = {
+                     method: 'Post',
+                     url: 'http://localhost:5000/loadmoretopic',
+                     headers: {
+                       'Content-Type': 'application/json'
+                     },
+                     data:  {
+                            offset:offset,
+                            userid:d}
+                    }
+
+                    $http(req).then(function(response){
+                        $scope.topi = [].concat($scope.topi , response.data) // concats data from response
+                        //angular.extend($scope.topi,response.data); try to look how to use this
+                    
+                        
+                    }, function(response){
+                        
+                        alert("server not reponding Error:"+ response.status);
+                        
+                    });
+                
+            }
+                   
+                   
+                   
+           
+            
+            
+            
+            $scope.hidden = true;
+            $scope.login = function () {
+                //If DIV is hidden it will be visible and vice versa.
+                $scope.hidden = $scope.hidden ? false : true;
+               }
+            
+            
+            });
+            
+            app.controller( "Mycontroller", function($scope) {
+            //This will hide the DIV inside mycontroller  by default.
+            $scope.IsHidden = true;
+            $scope.ShowHide = function () {
+                //If DIV is hidden it will be visible and vice versa.
+                $scope.IsHidden = $scope.IsHidden ? false : true;
+               }
+           
+        });
+            
+ 
+        
+  app.config(function($interpolateProvider) {
+    $interpolateProvider.startSymbol('//');
+    $interpolateProvider.endSymbol('//');
+  });
+
+         
+            
+          
+
+    
+            
+        function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+       login();
+    });
+         var form = document.createElement('form');//redirects to main webpage
+         form.action ='http://localhost:5000';
+            form.submit();
+            
+  } 
+            
+    
+   
+         
+    </script>
+
+    
+  
+   
+</html>
