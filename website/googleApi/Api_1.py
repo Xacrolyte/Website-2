@@ -25,9 +25,9 @@ def tokensignin():
     data = request.form
     #print(data)
     try:
-        idinfo = client.verify_id_token(data["idtoken"], '471530136413-nv0r5c26vc3h0fpp8pki7cnvfbf6rd12.apps.googleusercontent.com')
+        idinfo = client.verify_id_token(data["idtoken"], 'use your own web client id') 
     # If multiple clients access the backend server:
-        if idinfo['aud'] not in ['471530136413-nv0r5c26vc3h0fpp8pki7cnvfbf6rd12.apps.googleusercontent.com']:
+        if idinfo['aud'] not in ['use your own web client id']:
             return("Unrecognized client.")
         if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
             return ("Wrong issuer.")
@@ -46,7 +46,7 @@ def tokensignin():
 def loggedin():
     data =request.form
     #print(data)
-    idinfo = client.verify_id_token(data['datas'], '471530136413-nv0r5c26vc3h0fpp8pki7cnvfbf6rd12.apps.googleusercontent.com')
+    idinfo = client.verify_id_token(data['datas'], 'use your own web client id')
     sub = idinfo["sub"]
     print (idinfo["sub"])
     
@@ -56,7 +56,7 @@ def loggedin():
 
 
 @app.route("/topicslogin", methods=['POST'])
-def topicslogin():
+def topicslogin():          // still working on layout of webpage and thus using garbage data
     d=request.get_json(force=True)
     topic=({'topic':"my name is ali",'a':({'comment':"1st comment",'reply':{'b':"hahahaha", "likes":3,"id":1},"likes":4,'id':1},{'comment':"2st comment",'reply':{'b':"hahahaha", "likes":3,"id":2},"likes":4,'id':1245},{'comment':"3st comment",'reply':{'b':"hahahaha", "likes":3,"id":1234},"likes":4,'id':1245},{'comment':"4st comment",'reply':{'b':"hahahaha", "likes":3,"id":1234},"likes":4,'id':1245})},{'topic':"my name is kali",'a':({'comment':"1st comment",'reply':{'b':"hahahaha", "likes":3,"id":1234},"likes":4,'id':1245},{'comment':"2st comment",'reply':{'b':"hahahaha", "likes":3,"id":1234},"likes":4,'id':1245},{'comment':"3st comment",'reply':{'b':"hahahaha", "likes":3,"id":1234},"likes":4,'id':1245},{'comment':"4st comment",'reply':{'b':"hahahaha", "likes":3,"id":1234},"likes":4,'id':1245})},{'topic':"my name is rali",'a':({'comment':"1st comment",'reply':{'b':"hahahaha", "likes":3,"id":1234},"likes":4,'id':1245},{'comment':"2st comment",'reply':{'b':"hahahaha", "likes":3,"id":1234},"likes":4,'id':1245},{'comment':"3st comment",'reply':{'b':"hahahaha", "likes":3,"id":1234},"likes":4,'id':1245},{'comment':"4st comment",'reply':{'b':"hahahaha", "likes":3,"id":1234},"likes":4,'id':1245})},{'topic':"my name is pali",'a':({'comment':"1st comment",'reply':{'b':"hahahaha", "likes":3,"id":1234},"likes":4,'id':1245},{'comment':"2st comment",'reply':{'b':"hahahaha", "likes":3,"id":1234},"likes":4,'id':1245},{'comment':"3st comment",'reply':{'b':"hahahaha", "likes":3,"id":1234},"likes":4,'id':1245},{'comment':"4st comment",'reply':{'b':"hahahaha", "likes":3,"id":1234},"likes":4,'id':1245})})
     print ("hello")
