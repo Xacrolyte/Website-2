@@ -3,7 +3,7 @@
 
 Designing a website where people can discsuss ideas ( using python flask, Html, Css, angularjs)
 
-Currently server in local setup on my own mac
+Currently server is setup locally in my computer
 
 Some Variables names may not be intitutive as i am still working on the design
 
