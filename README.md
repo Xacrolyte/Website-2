@@ -9,5 +9,5 @@ Some Variables names may not be intitutive as i am still working on the design
 
 Using google api for login and sql to save data
 
-# website > googleapi > api.py is the main function
+# website > googleapi > api_1.py is the main function
 
